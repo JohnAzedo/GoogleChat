@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class MessageFieldComposer extends StatefulWidget {
 
   MessageFieldComposer(this.sendMessage);
-  Function(String) sendMessage;
+  final Function({String text, PickedFile file}) sendMessage;
 
   @override
   _MessageFieldComposerState createState() => _MessageFieldComposerState();
@@ -19,10 +22,16 @@ class _MessageFieldComposerState extends State<MessageFieldComposer> {
     });
   }
 
-  _action(){
-    widget.sendMessage(controller.text);
+  _sendAction(){
+    widget.sendMessage(text: controller.text);
     controller.clear();
     isTyping = false;
+  }
+
+  _cameraAction() async{
+    final PickedFile file = await ImagePicker.platform.pickImage(source: ImageSource.camera);
+    if(file == null) return;
+    widget.sendMessage(file: file);
   }
 
   @override
@@ -32,7 +41,7 @@ class _MessageFieldComposerState extends State<MessageFieldComposer> {
         children: [
           IconButton(
             icon: Icon(Icons.photo_camera),
-            onPressed: () {},
+            onPressed: _cameraAction,
           ),
           Expanded(
             child: TextField(
@@ -41,12 +50,12 @@ class _MessageFieldComposerState extends State<MessageFieldComposer> {
                 isTyping = text.isNotEmpty;
               },
               controller: controller,
-              onSubmitted: (text) => _action(),
+              onSubmitted: (text) => _sendAction(),
             ),
           ),
           IconButton(
             icon: Icon(Icons.send),
-            onPressed: _isTyping ? _action : null,
+            onPressed: _isTyping ? _sendAction : null,
           )
         ],
       ),
