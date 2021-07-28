@@ -1,8 +1,9 @@
 import 'dart:io';
 
+import 'package:chat/models/message.dart';
 import 'package:chat/shared/progress_indicator.dart';
+import 'package:chat/shared/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'message_field.dart';
@@ -14,26 +15,16 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   void _sendMessage({String text, PickedFile file}) async {
-    Map<String, dynamic> data = {};
-    data['from'] = "João";
-
+    var message = Message(to: 'Luka', from: 'Lemmon');
     if (file != null) {
-      UploadTask task = FirebaseStorage.instance
-          .ref()
-          .child(DateTime.now().millisecondsSinceEpoch.toString())
-          .putFile(File(file.path));
-
-      TaskSnapshot snapshot = await task;
-      data['url'] = await snapshot.ref.getDownloadURL();
-      data['isPhoto'] = true;
+      message.photoURL = await uploadPickedFile(file);
     }
 
     if (text != null) {
-      data['text'] = text;
-      data['isPhoto'] = false;
+      message.text = text;
     }
 
-    FirebaseFirestore.instance.collection("message").add(data);
+    FirebaseFirestore.instance.collection("message").add(message.toJson());
   }
 
   @override
@@ -60,16 +51,10 @@ class _ChatScreenState extends State<ChatScreen> {
                           List<DocumentSnapshot> documents = snapshot.data.docs;
                           return ListView.builder(
                             itemCount: documents.length,
-                            reverse: false,
                             itemBuilder: (context, index){
-                              String text = 'URL';
-                              var document = documents[index];
-                              if(!document.get('isPhoto')){
-                                text = document.get('text');
-                              }
-
+                              var message = Message.fromJson(documents[index].data());
                               return ListTile(
-                                title: Text(text),
+                                title: Text(message.text),
                               );
                             },
                           );
