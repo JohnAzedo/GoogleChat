@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:chat/models/message.dart';
 import 'package:chat/shared/progress_indicator.dart';
 import 'package:chat/shared/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'message_field.dart';
@@ -14,8 +13,10 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  User _currentUser;
+
   void _sendMessage({String text, PickedFile file}) async {
-    var message = Message(to: 'Luka', from: 'Lemmon');
+    var message = Message(to: _currentUser.displayName, from: 'Lemmon');
     if (file != null) {
       message.photoURL = await uploadPickedFile(file);
     }
@@ -23,8 +24,15 @@ class _ChatScreenState extends State<ChatScreen> {
     if (text != null) {
       message.text = text;
     }
+    FirebaseFirestore.instance.collection("messages").add(message.toJson());
+  }
 
-    FirebaseFirestore.instance.collection("message").add(message.toJson());
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.userChanges().listen((user) {
+      _currentUser = user;
+    });
   }
 
   @override
@@ -40,7 +48,7 @@ class _ChatScreenState extends State<ChatScreen> {
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
-                        .collection("message")
+                        .collection("messages")
                         .snapshots(),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {

@@ -1,3 +1,4 @@
+import 'package:chat/screens/auth.dart';
 import 'package:chat/screens/chat/chat.dart';
 import 'package:chat/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,7 +24,7 @@ class App extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: ChatScreen(),
+            home: AuthScreen(),
             theme: ThemeData(
               primarySwatch: Colors.teal,
               iconTheme: IconThemeData(
