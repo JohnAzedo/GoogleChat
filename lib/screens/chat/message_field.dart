@@ -15,12 +15,13 @@ class MessageFieldComposer extends StatefulWidget {
 class _MessageFieldComposerState extends State<MessageFieldComposer> {
 
   bool _isTyping = false;
-  final controller = TextEditingController();
   void set isTyping(bool value){
     setState(() {
       _isTyping = value;
     });
   }
+
+  final controller = TextEditingController();
 
   _sendAction(){
     widget.sendMessage(text: controller.text);
