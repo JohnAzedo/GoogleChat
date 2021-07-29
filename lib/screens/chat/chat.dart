@@ -24,7 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (text != null) {
       message.text = text;
     }
-    FirebaseFirestore.instance.collection("messages").add(message.toJson());
+    FirebaseFirestore.instance.collection(Message.COLLECTION_NAME).add(message.toJson());
   }
 
   @override
@@ -48,7 +48,7 @@ class _ChatScreenState extends State<ChatScreen> {
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
-                        .collection("messages")
+                        .collection(Message.COLLECTION_NAME)
                         .snapshots(),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {

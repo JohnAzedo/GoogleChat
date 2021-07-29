@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 
 class Message {
+  static String COLLECTION_NAME = "messages";
+
   String id;
   String text;
   bool read;
