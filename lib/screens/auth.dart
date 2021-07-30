@@ -1,5 +1,4 @@
 import 'package:chat/models/user.dart';
-import 'package:chat/screens/chat/chat.dart';
 import 'package:chat/screens/home.dart';
 import 'package:chat/shared/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,6 +28,7 @@ class _AuthScreenState extends State<AuthScreen> {
         photoURL: credential.user.photoURL
     );
 
+    // Change this
     FirebaseFirestore.instance
         .collection(CustomUser.COLLECTION_NAME)
         .where('uid', isEqualTo: user.uID).limit(1).get()
