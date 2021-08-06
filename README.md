@@ -11,6 +11,7 @@ O projeto GoogleChat foi craido para estudar os seguintes tópicos:
 - Integração com o Firebase `Storage` para o upload de arquivos;
 - Utilizar a câmera do dispositivo;
 - Notificações do dispositivo;
+- Testes automatizados.
 
 ## Casos de uso
 
