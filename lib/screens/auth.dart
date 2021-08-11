@@ -1,4 +1,6 @@
-import 'package:chat/models/user.dart';
+import 'package:chat/controllers/credential.dart';
+import 'package:chat/models/guser.dart';
+import 'package:chat/repositories/users.dart';
 import 'package:chat/screens/home.dart';
 import 'package:chat/shared/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,23 +22,12 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   void _signIn() async {
-    final UserCredential credential = await signInWithGoogle();
-    var user = CustomUser(
-        uID: credential.user.uid,
-        email: credential.user.email,
-        name: credential.user.displayName,
-        photoURL: credential.user.photoURL
-    );
-
-    // Change this
-    FirebaseFirestore.instance
-        .collection(CustomUser.COLLECTION_NAME)
-        .where('uid', isEqualTo: user.uID).limit(1).get()
-        .then((QuerySnapshot query) {
-          if(query.docs.isEmpty){
-            FirebaseFirestore.instance.collection(CustomUser.COLLECTION_NAME).add(user.toJson());
-          }
-        });
+    final GUser user = await Credential().getGUser();
+    final repository = GUserRepository();
+    final queryShot = await repository.searchUserById(id: user.uID);
+    if(queryShot.docs.isEmpty){
+      await repository.createUser(user: user);
+    }
     _navigateToHome();
   }
 
