@@ -1,6 +1,6 @@
 import 'package:chat/controllers/credential.dart';
 import 'package:chat/models/guser.dart';
-import 'package:chat/repositories/users.dart';
+import 'package:chat/repositories/guser_repository.dart';
 import 'package:chat/screens/home.dart';
 import 'package:chat/shared/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,7 +14,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   void _navigateToHome() {
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => Home(),
       ),
@@ -24,10 +24,7 @@ class _AuthScreenState extends State<AuthScreen> {
   void _signIn() async {
     final GUser user = await Credential().getGUser();
     final repository = GUserRepository();
-    final queryShot = await repository.searchUserById(id: user.uID);
-    if(queryShot.docs.isEmpty){
-      await repository.createUser(user: user);
-    }
+    await repository.createUser(user: user);
     _navigateToHome();
   }
 

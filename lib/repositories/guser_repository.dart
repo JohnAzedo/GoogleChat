@@ -11,7 +11,11 @@ class GUserRepository {
   }
 
   Future<DocumentReference<Object>> createUser({@required GUser user}) async{
-    return _getCollection().add(user.toJson());
+    final querySnapShot = await searchUserById(id: user.uID);
+    if(querySnapShot.docs.isEmpty){
+      return _getCollection().add(user.toJson());
+    }
+    return null;
   }
 
   // Generic
