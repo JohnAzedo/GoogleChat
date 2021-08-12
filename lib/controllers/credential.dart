@@ -4,19 +4,19 @@ import 'package:chat/shared/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Credential {
-  UserCredential _userCredential;
+  late final UserCredential _userCredential;
 
-  void _getCredential() async {
+  Future<void> _getCredential() async {
     this._userCredential = await signInWithGoogle();
   }
 
   Future<GUser> getGUser() async {
     await _getCredential();
     return GUser(
-        uID: this._userCredential.user.uid,
-        email: this._userCredential.user.email,
-        name: this._userCredential.user.displayName,
-        photoURL: this._userCredential.user.photoURL
+        uID: this._userCredential.user!.uid,
+        email: this._userCredential.user!.email,
+        name: this._userCredential.user!.displayName,
+        photoURL: this._userCredential.user!.photoURL
     );
   }
 }

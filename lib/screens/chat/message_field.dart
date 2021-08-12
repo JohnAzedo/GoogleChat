@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 class MessageFieldComposer extends StatefulWidget {
 
   MessageFieldComposer(this.sendMessage);
-  final Function({String text, PickedFile file}) sendMessage;
+  final Function({String? text, PickedFile? file}) sendMessage;
 
   @override
   _MessageFieldComposerState createState() => _MessageFieldComposerState();
@@ -30,7 +30,7 @@ class _MessageFieldComposerState extends State<MessageFieldComposer> {
   }
 
   _cameraAction() async{
-    final PickedFile file = await ImagePicker.platform.pickImage(source: ImageSource.camera);
+    final PickedFile? file = await ImagePicker.platform.pickImage(source: ImageSource.camera);
     if(file == null) return;
     widget.sendMessage(file: file);
   }

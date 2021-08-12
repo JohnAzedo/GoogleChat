@@ -6,16 +6,16 @@ class GUserRepository {
   // Generic
   final String _COLLECTION_NAME = "users";
 
-  Future<QuerySnapshot<Object>> searchUserById({@required String id}) async{
+  Future<QuerySnapshot<Object?>> searchUserById({required String? id}) async{
     return _getCollection().where('uid', isEqualTo: id).limit(1).get();
+
   }
 
-  Future<DocumentReference<Object>> createUser({@required GUser user}) async{
-    final querySnapShot = await searchUserById(id: user.uID);
+  Future<void> createUser({required GUser user}) async{
+    final querySnapShot = await this.searchUserById(id: user.uID);
     if(querySnapShot.docs.isEmpty){
-      return _getCollection().add(user.toJson());
+      _getCollection().add(user.toJson());
     }
-    return null;
   }
 
   // Generic

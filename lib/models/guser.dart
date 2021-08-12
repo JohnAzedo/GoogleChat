@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class GUser {
-  final String uID;
-  final String email;
-  final String name;
-  final String photoURL;
+  final String? uID;
+  final String? email;
+  final String? name;
+  final String? photoURL;
 
-  GUser({@required this.uID, @required this.email, @required this.name, @required this.photoURL});
+  GUser({required this.uID, required this.email, required this.name, required this.photoURL});
 
   GUser.fromJson(Map<String, dynamic> json):
         uID = json['uid'],

@@ -5,16 +5,16 @@ import 'package:flutter/cupertino.dart';
 class Message {
   static String COLLECTION_NAME = "messages";
 
-  String id;
-  String text;
-  bool read;
-  bool hasPhoto;
-  String photoURL;
-  String from;
-  String to;
-  DateTime time;
+  String? id;
+  String? text;
+  bool? read;
+  bool? hasPhoto;
+  String? photoURL;
+  String? from;
+  String? to;
+  late DateTime time;
 
-  Message({this.text, @required this.to, @required this.from, String photoURL}) {
+  Message({this.text, required this.to, required this.from, String? photoURL}) {
     this.time = DateTime.now();
     if (photoURL != null) {
       hasPhoto = true;

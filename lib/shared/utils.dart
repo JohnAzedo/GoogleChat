@@ -15,8 +15,8 @@ Future<String> uploadPickedFile(PickedFile file) async{
 }
 
 Future<UserCredential> signInWithGoogle() async{
-  final GoogleSignInAccount account = await GoogleSignIn().signIn();
-  final GoogleSignInAuthentication authentication = await account.authentication;
+  final GoogleSignInAccount? account = await GoogleSignIn().signIn();
+  final GoogleSignInAuthentication authentication = await account!.authentication;
   final credential = GoogleAuthProvider.credential(
       accessToken: authentication.accessToken,
       idToken: authentication.idToken

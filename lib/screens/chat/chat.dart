@@ -13,10 +13,10 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  User _currentUser;
+  User? _currentUser;
 
-  void _sendMessage({String text, PickedFile file}) async {
-    var message = Message(to: _currentUser.displayName, from: 'Lemmon');
+  void _sendMessage({String? text, PickedFile? file}) async {
+    var message = Message(to: _currentUser!.displayName, from: 'Lemmon');
     if (file != null) {
       message.photoURL = await uploadPickedFile(file);
     }
@@ -56,13 +56,13 @@ class _ChatScreenState extends State<ChatScreen> {
                         case ConnectionState.waiting:
                           return WaitIndicator();
                         default:
-                          List<DocumentSnapshot> documents = snapshot.data.docs;
+                          List<DocumentSnapshot> documents = snapshot.data!.docs;
                           return ListView.builder(
                             itemCount: documents.length,
                             itemBuilder: (context, index){
-                              var message = Message.fromJson(documents[index].data());
+                              var message = Message.fromJson(documents[index].data() as Map<String, dynamic>);
                               return ListTile(
-                                title: Text(message.text),
+                                title: Text(message.text!),
                               );
                             },
                           );
