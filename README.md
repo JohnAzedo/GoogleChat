@@ -44,8 +44,7 @@ NF06 | Oferecer uma lista de configurações onde terá a opção de apagar a co
 NF07 | Oferecer uma lista de configurações onde terá a opção de deslogar | F06
 
 ## Descrição do NoSQL
-
-![GoogleChat](https://user-images.githubusercontent.com/19677206/129483226-591854cb-f4ff-42d5-a4ef-cd0bb0e1fa29.png)
+![GoogleChat(1)](https://user-images.githubusercontent.com/19677206/129483262-d2466d4b-8a03-4118-aaee-94225433606d.png)
 
 
 ## Diagrama de fluxo
