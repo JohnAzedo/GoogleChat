@@ -45,7 +45,7 @@ NF07 | Oferecer uma lista de configurações onde terá a opção de deslogar | 
 
 ## Descrição do NoSQL
 
-![Untitled Diagram](https://user-images.githubusercontent.com/19677206/129482701-68f94feb-73e0-445f-ba54-dbf9438e8417.png)
+![GoogleChat](https://user-images.githubusercontent.com/19677206/129483226-591854cb-f4ff-42d5-a4ef-cd0bb0e1fa29.png)
 
 
 ## Diagrama de fluxo
