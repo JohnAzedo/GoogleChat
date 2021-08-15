@@ -1,8 +1,11 @@
+import 'package:chat/controllers/chat_controller.dart';
 import 'package:chat/models/message.dart';
+import 'package:chat/repositories/chat_repository.dart';
 import 'package:chat/shared/progress_indicator.dart';
 import 'package:chat/shared/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'message_field.dart';
@@ -14,25 +17,18 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   User? _currentUser;
-
-  void _sendMessage({String? text, PickedFile? file}) async {
-    var message = Message(to: _currentUser!.displayName, from: 'Lemmon');
-    if (file != null) {
-      message.photoURL = await uploadPickedFile(file);
-    }
-
-    if (text != null) {
-      message.text = text;
-    }
-    FirebaseFirestore.instance.collection(Message.COLLECTION_NAME).add(message.toJson());
-  }
+  late final ChatController _controller;
+  late final ChatRepository _repository;
 
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.userChanges().listen((user) {
-      _currentUser = user;
-    });
+    this._currentUser = FirebaseAuth.instance.currentUser;
+    this._repository = ChatRepository();
+    this._controller = ChatController(this._currentUser!, this._repository);
+    // FirebaseAuth.instance.userChanges().listen((user) {
+    //   this._currentUser = user;
+    // });
   }
 
   @override
@@ -70,7 +66,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     }),
               ),
               MessageFieldComposer(
-                _sendMessage,
+                this._controller,
               ),
             ],
           ),

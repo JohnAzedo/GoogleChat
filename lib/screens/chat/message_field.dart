@@ -1,12 +1,14 @@
 import 'dart:io';
 
+import 'package:chat/controllers/chat_controller.dart';
+import 'package:chat/repositories/chat_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MessageFieldComposer extends StatefulWidget {
 
-  MessageFieldComposer(this.sendMessage);
-  final Function({String? text, PickedFile? file}) sendMessage;
+  MessageFieldComposer(ChatController this.controller);
+  final ChatController controller;
 
   @override
   _MessageFieldComposerState createState() => _MessageFieldComposerState();
@@ -24,7 +26,7 @@ class _MessageFieldComposerState extends State<MessageFieldComposer> {
   final controller = TextEditingController();
 
   _sendAction(){
-    widget.sendMessage(text: controller.text);
+    widget.controller.sendMessage(text: controller.text);
     controller.clear();
     isTyping = false;
   }
@@ -32,7 +34,7 @@ class _MessageFieldComposerState extends State<MessageFieldComposer> {
   _cameraAction() async{
     final PickedFile? file = await ImagePicker.platform.pickImage(source: ImageSource.camera);
     if(file == null) return;
-    widget.sendMessage(file: file);
+    await widget.controller.sendMessage(file: file);
   }
 
   @override
