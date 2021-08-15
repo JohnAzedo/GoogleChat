@@ -16,7 +16,7 @@ class GUserRepository extends MixinRepository{
   Future<void> createUser({required GUser user}) async{
     final querySnapShot = await this.searchUserById(id: user.uID);
     if(querySnapShot.docs.isEmpty){
-      this.getCollection().add(user.toJson());
+      this.getCollection().doc(user.email).set(user.toJson());
     }
   }
 }

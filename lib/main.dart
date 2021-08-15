@@ -1,5 +1,5 @@
 import 'package:chat/screens/auth.dart';
-import 'package:chat/screens/chat/chat.dart';
+import 'package:chat/screens/chat/chat_screen.dart';
 import 'package:chat/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

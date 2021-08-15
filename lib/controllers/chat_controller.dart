@@ -4,7 +4,7 @@ import 'package:chat/shared/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ChatController {
+class ChatController{
   late final User user;
   late final ChatRepository repository;
 

@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'chat/chat.dart';
+import 'chat/chat_screen.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   void _navigateToHome() {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => ChatScreen(),
+        builder: (context) => Home(),
       ),
     );
   }
