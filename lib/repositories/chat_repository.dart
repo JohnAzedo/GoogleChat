@@ -1,4 +1,5 @@
 import 'package:chat/models/message.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'mixin_repository.dart';
 
 class ChatRepository extends MixinRepository {
@@ -10,5 +11,7 @@ class ChatRepository extends MixinRepository {
     this.getCollection().add(message.toJson());
   }
 
-
+  Stream<QuerySnapshot<Object?>> streamMessage() {
+    return this.getCollection().snapshots();
+  }
 }

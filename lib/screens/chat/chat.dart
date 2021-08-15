@@ -2,12 +2,10 @@ import 'package:chat/controllers/chat_controller.dart';
 import 'package:chat/models/message.dart';
 import 'package:chat/repositories/chat_repository.dart';
 import 'package:chat/shared/progress_indicator.dart';
-import 'package:chat/shared/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'message_field.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -26,9 +24,6 @@ class _ChatScreenState extends State<ChatScreen> {
     this._currentUser = FirebaseAuth.instance.currentUser;
     this._repository = ChatRepository();
     this._controller = ChatController(this._currentUser!, this._repository);
-    // FirebaseAuth.instance.userChanges().listen((user) {
-    //   this._currentUser = user;
-    // });
   }
 
   @override
@@ -43,9 +38,7 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection(Message.COLLECTION_NAME)
-                        .snapshots(),
+                    stream: this._repository.streamMessage(),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
