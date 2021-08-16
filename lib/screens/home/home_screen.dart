@@ -4,7 +4,7 @@ import 'package:chat/shared/progress_indicator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'chat/chat_screen.dart';
+import '../chat/chat_screen.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -79,7 +79,7 @@ class ListItem extends StatelessWidget {
   late final String photoURL;
   late final String name;
   late final String lastMessage;
-  final isMessageRead = true;
+  final isMessageRead = false;
 
   ListItem({required this.index, required this.photoURL, required this.name, required this.lastMessage});
 
@@ -90,7 +90,7 @@ class ListItem extends StatelessWidget {
       onTap: (){
       },
       child: Container(
-        padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
+        padding: EdgeInsets.only(left: 16,right: 16,top: 8,bottom: 8),
         child: Row(
           children: <Widget>[
             Expanded(

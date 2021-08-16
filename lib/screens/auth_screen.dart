@@ -1,7 +1,7 @@
 import 'package:chat/controllers/credential.dart';
 import 'package:chat/models/guser.dart';
 import 'package:chat/repositories/guser_repository.dart';
-import 'package:chat/screens/home.dart';
+import 'package:chat/screens/home/home_screen.dart';
 import 'package:chat/shared/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
