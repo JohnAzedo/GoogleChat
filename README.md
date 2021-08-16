@@ -4,7 +4,7 @@ O GoogleChat é um aplicativo para envio de mensagens utilizando as contas do Go
 
 O projeto GoogleChat foi craido para estudar os seguintes tópicos:
 
-- Gerência de estado com `GetX`;
+- Gerência de estado com `Provider`;
 - Provedor de código utilizando `Provider` para aplicar a `Injeção de dependência`;
 - Integração com o Firebase para a autenticação usando o `GoogleSignIn`;
 - Integração com o Firebase `FireStore` para a persistência dos dados;
