@@ -35,8 +35,8 @@ class _ChatsListViewState extends State<ChatsListView> {
                       const Divider(),
                   itemCount: documents.length,
                   itemBuilder: (BuildContext context, int index) {
-                    var chat = Chat.fromJson(
-                        documents[index].data() as Map<String, dynamic>);
+                    var chat = Chat.fromJson(documents[index].data() as Map<String, dynamic>);
+                    debugPrint(chat.toString());
                     return ListItem(
                       index: index,
                       photoURL: chat.photoURL!,

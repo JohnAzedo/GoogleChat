@@ -1,8 +1,7 @@
+import 'package:chat/repositories/guser_repository.dart';
 import 'package:chat/screens/auth_screen.dart';
-import 'package:chat/screens/chat/chat_screen.dart';
 import 'package:chat/screens/home/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -10,6 +9,16 @@ void main() async {
 }
 
 class App extends StatelessWidget {
+  final repository = GUserRepository();
+
+  Widget route() {
+    if(repository.getCurrentUser() != null){
+      return Home();
+    } else {
+      return AuthScreen();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -19,12 +28,11 @@ class App extends StatelessWidget {
         if (snapshot.hasError) {
           return Text('Connection error');
         }
-
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: AuthScreen(),
+            home: route(),
             theme: ThemeData(
               primarySwatch: Colors.teal,
               iconTheme: IconThemeData(
