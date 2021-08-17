@@ -25,4 +25,8 @@ class GUserRepository extends MixinRepository{
     var user = FirebaseAuth.instance.currentUser;
     return user;
   }
+
+  Stream<QuerySnapshot<Object?>> getUsers() {
+    return this.getCollection().snapshots();
+  }
 }
