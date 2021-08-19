@@ -38,6 +38,7 @@ class _UserListScreenState extends State<UserListScreen> {
                         index: index,
                         photoURL: user.photoURL!,
                         name: user.name!,
+                        onTap: (){},
                       );
                     });
             }

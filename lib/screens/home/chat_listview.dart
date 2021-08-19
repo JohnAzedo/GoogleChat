@@ -44,6 +44,7 @@ class _ChatsListViewState extends State<ChatsListView> {
                       photoURL: chat.photoURL!,
                       name: chat.name!,
                       lastMessage: "This is a test!",
+                      onTap: (){},
                     );
                   });
           }

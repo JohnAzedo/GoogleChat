@@ -6,12 +6,14 @@ class ListItem extends StatelessWidget {
   late final String name;
   late final String? lastMessage;
   final isMessageRead = false;
+  final Function onTap;
 
   ListItem(
       {required this.index,
         required this.photoURL,
         required this.name,
-        this.lastMessage});
+        this.lastMessage,
+        required this.onTap});
 
   Widget TextWidget() {
     return Text(
@@ -36,7 +38,7 @@ class ListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return GestureDetector(
-      onTap: () {},
+      onTap: this.onTap(),
       child: Container(
         padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
         child: Row(
